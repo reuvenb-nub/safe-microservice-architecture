@@ -1,6 +1,7 @@
 import os
 from flask import Flask, request, jsonify
 from flask_mysqldb import MySQL
+import requests
 
 app = Flask(__name__)
 
@@ -41,6 +42,11 @@ def get_tasks():
     cursor.execute(query, (user_id,))
     tasks = cursor.fetchall()
     cursor.close()
+
+    response = requests.get(
+        f"http://127.0.0.1:1234/"
+    )
+    print(response.text)
 
     # Convert task data into a JSON response
     task_list = []
